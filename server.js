@@ -6,6 +6,28 @@ import {First} from "./first.mpdule";
 const server = express();
 server.use(cors());
 
+let jsonData = [
+  {
+    id: 1,
+    name: "iPhone",
+    price: 1999,
+    image: "https://www.bell.ca/Styles/images/apple/img-WhyBell_Apple_marchLTO_Savings.png",
+  },
+  {
+    id: 2,
+    name: "Samsung",
+    price: 999,
+    image: "https://www.bell.ca/Styles/images/Samsung_Galaxy_A03s_Black_lrg1.png",
+  },
+  {
+    id: 3,
+    name: "LG",
+    price: 599,
+    image:
+      "https://www.lg.com/ca_en/images/cell-phones/md07512171/features/MC-Velvet-AuroraGray-3a-SecondYearPromise-Mobile.jpg",
+  },
+];
+
 // req is what the browser (client) sends to the server
 // res is what the server would send to the browser (client)
 server.get("/", (req, res) => {
@@ -60,30 +82,15 @@ server.get("/about-us", (req, res) => {
   ]);
 });
 
+server.get("/product/:id", (req, res) => {
+  // res.send(req.params.id);
+  res.send(jsonData.find(x => x.id == req.params.id));
+});
+
+// Req us by the Client to the Server
+// Res is by the Server to the Client
 server.get("/products", (req, res) => {
-  res.json([
-    {
-      name: "iPhone",
-      price: 1999,
-      image: "https://www.bell.ca/Styles/images/apple/img-WhyBell_Apple_marchLTO_Savings.png",
-    },
-    {
-      name: "Samsung",
-      price: 999,
-      image: "https://www.bell.ca/Styles/images/Samsung_Galaxy_A03s_Black_lrg1.png",
-    },
-    {
-      name: "LG",
-      price: 599,
-      image:
-        "https://www.lg.com/ca_en/images/cell-phones/md07512171/features/MC-Velvet-AuroraGray-3a-SecondYearPromise-Mobile.jpg",
-    },
-    {
-      name: "not none",
-      price: 0,
-      image: " ",
-    },
-  ]);
+  res.json(jsonData);
 });
 
 // Create a server and run from the port number specified
